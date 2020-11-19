@@ -7,7 +7,7 @@ import { Main } from './components/Main'
 // to hide warnings uncomment below
 // console.disableYellowBox = true;
 
-export default function App() {
+const App = () => {
   return (
     <Main />
   );
@@ -25,3 +25,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default App

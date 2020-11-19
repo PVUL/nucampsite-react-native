@@ -5,19 +5,22 @@ import { Directory } from './Directory.js'
 import { CAMPSITES } from '../shared/campsites'
 import { CampsiteInfo } from './CampsiteInfo.js'
 
+const INITIAL_CAMPSITE_ID = 0
+
 export const Main = () => {
-  const [campsites] = useState(CAMPSITES)
-  const [selectedCampsiteId, setSelectedCampsiteId] = useState(0)
+  const [selectedCampsite, setSelectedCampsite] = useState(CAMPSITES[INITIAL_CAMPSITE_ID])
+
+  const handlePress = campsiteId => {
+    setSelectedCampsite(CAMPSITES.find(c => c.id === campsiteId))
+  }
 
   return (
     <View style={{ flex: 1 }}>
       <Directory
-        campsites={campsites}
-        onPress={campsiteId => setSelectedCampsiteId(campsiteId)}
+        campsites={CAMPSITES}
+        onPress={handlePress}
       />
-      <CampsiteInfo
-        campsite={campsites.find(c => c.id === selectedCampsiteId)}
-      />
+      <CampsiteInfo campsite={selectedCampsite} />
     </View>
   )
 }

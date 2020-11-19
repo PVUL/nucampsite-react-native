@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View } from 'react-native'
 import { Card } from 'react-native-elements'
 
-const renderCampsite = (campsite) =>
+const renderCampsite = campsite =>
   <>
     {!!campsite ? (
       <Card
@@ -18,8 +18,7 @@ const renderCampsite = (campsite) =>
     )}
   </>
 
-
-export const CampsiteInfo = (props) =>
+export const CampsiteInfo = props =>
   <>
     {renderCampsite(props.campsite)}
   </>

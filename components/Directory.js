@@ -2,7 +2,7 @@ import React from 'react'
 import { FlatList } from 'react-native'
 import { ListItem } from 'react-native-elements'
 
-export const Directory = (props) => {
+export const Directory = props => {
 
   const renderDirectoryItem = ({ item }) =>
     <ListItem
