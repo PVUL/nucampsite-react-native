@@ -13,10 +13,10 @@ export const Main = () => {
     <View style={{ flex: 1 }}>
       <Directory
         campsites={campsites}
-        onPress={campsiteId => setSelectedCampsiteId(campsiteId)}
+        onPress={campsiteId => setSelemctedCampsiteId(campsiteId)}
       />
       <CampsiteInfo
-        campsite={campsites.filter(c => c.id === selectedCampsiteId)[0]}
+        campsite={campsites.find(c => c.id === selectedCampsiteId)}
       />
     </View>
   )

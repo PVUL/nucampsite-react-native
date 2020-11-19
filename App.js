@@ -4,6 +4,9 @@ import { StatusBar } from 'expo-status-bar';
 
 import { Main } from './components/Main'
 
+// to hide warnings uncomment below
+// console.disableYellowBox = true;
+
 export default function App() {
   return (
     <Main />
