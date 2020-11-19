@@ -13,7 +13,7 @@ export const Main = () => {
     <View style={{ flex: 1 }}>
       <Directory
         campsites={campsites}
-        onPress={campsiteId => setSelemctedCampsiteId(campsiteId)}
+        onPress={campsiteId => setSelectedCampsiteId(campsiteId)}
       />
       <CampsiteInfo
         campsite={campsites.find(c => c.id === selectedCampsiteId)}
