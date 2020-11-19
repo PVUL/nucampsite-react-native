@@ -2,21 +2,33 @@ import React from 'react'
 import { FlatList } from 'react-native'
 import { ListItem } from 'react-native-elements'
 
-export const Directory = props => {
+import { CAMPSITES } from '../shared/campsites'
 
-  const renderDirectoryItem = ({ item }) =>
-    <ListItem
-      title={item.name}
-      subtitle={item.description}
-      leftAvatar={{ source: require('../assets/images/react-lake.jpg') }}
-      onPress={() => props.onPress(item.id)}
-    />
+export class Directory extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { campsites: CAMPSITES }
+  }
 
-  return (
-    <FlatList
-      data={props.campsites}
-      renderItem={renderDirectoryItem}
-      keyExtractor={item => item.id.toString()}
-    />
-  )
+  static navigationOptions = { title: 'Directory' }
+
+  render() {
+    const { navigate } = this.props.navigation
+
+    const renderDirectoryItem = ({ item }) =>
+      <ListItem
+        title={item.name}
+        subtitle={item.description}
+        leftAvatar={{ source: require('../assets/images/react-lake.jpg') }}
+        onPress={() => navigate('CampsiteInfo', { campsiteId: item.id })}
+      />
+
+    return (
+      <FlatList
+        data={this.state.campsites}
+        renderItem={renderDirectoryItem}
+        keyExtractor={item => item.id.toString()}
+      />
+    )
+  }
 }

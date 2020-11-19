@@ -32,3 +32,18 @@ $ echo 'alias ios="open /Applications/Xcode.app/Contents/Developer/Applications/
 $ source ~/.zshrc
 $ ios
 ```
+
+---
+
+Todo:
+
+Add Storybook
+
+- https://sophieau.com/article/react-native-storybook
+- https://github.com/joan-saum/react-native-storybook-web
+
+React Native Web
+
+- https://necolas.github.io/react-native-web/docs/?path=/docs/components-activityindicator--animating
+- https://medium.com/@toastui/from-zero-to-publish-expo-web-react-native-for-web-tutorial-e3e020d6d3ff
+- https://github.com/devhubapp/devhub
