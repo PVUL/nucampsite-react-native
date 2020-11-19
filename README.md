@@ -28,7 +28,7 @@ $ android
 And to add an `ios` alias to start the ios simulator from cli:
 
 ```bash
-$ echo 'alias ios="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app' >> ~/.zshrc
+$ echo 'alias ios="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"' >> ~/.zshrc
 $ source ~/.zshrc
 $ ios
 ```
