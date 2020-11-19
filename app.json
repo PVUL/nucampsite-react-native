@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "nucampsite",
+    "name": "NuCamp",
     "slug": "nucampsite",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,12 +18,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
