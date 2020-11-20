@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Picker,
   Switch,
-  Button
+  Button,
+  Modal,
 } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
@@ -15,8 +16,17 @@ const ReservationComponent = () => {
   const [hikeIn, setHikeIn] = useState(false)
   const [date, setDate] = useState(new Date())
   const [showCalendar, setShowCalendar] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
-  const handleReservation = () => console.log(date)
+  const toggleModal = () => setShowModal(!showModal)
+
+  const resetForm = () => {
+    setCampers(1)
+    setHikeIn(false)
+    setDate(new Date())
+    setShowCalendar(false)
+    setShowModal(false)
+  }
 
   return (
     <ScrollView>
@@ -69,12 +79,39 @@ const ReservationComponent = () => {
       )}
       <View style={styles.formRow}>
         <Button
-          onPress={handleReservation}
+          onPress={toggleModal}
           title='Search'
           color='#5637dd'
           accessibilityLabel='Tap me to search for available campsites to reserve'
         />
       </View>
+      <Modal
+        animationType='slide'
+        transparent={false}
+        visible={showModal}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modal}>
+          <Text style={styles.modalTitle}>Search Campsite Reserveration</Text>
+          <Text style={styles.modalText}>
+            Number of Campers: {campers}
+          </Text>
+          <Text style={styles.modalText}>
+            Hike-In?: {hikeIn ? 'Yes' : 'No'}
+          </Text>
+          <Text style={styles.modalText}>
+            Date: {date.toLocaleDateString('en-US')}
+          </Text>
+          <Button
+            onPress={() => {
+              toggleModal()
+              resetForm()
+            }}
+            color='#5637dd'
+            title='Close'
+          />
+        </View>
+      </Modal>
     </ScrollView>
   )
 }
@@ -93,6 +130,22 @@ const styles = StyleSheet.create({
   },
   formItem: {
     flex: 1,
+  },
+  modal: {
+    justifyContent: 'center',
+    margin: 20,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    backgroundColor: '#5637dd',
+    textAlign: 'center',
+    color: '#fff',
+    marginBottom: 20,
+  },
+  modalText: {
+    fontSize: 18,
+    margin: 10,
   }
 })
 
