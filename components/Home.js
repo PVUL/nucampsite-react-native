@@ -24,31 +24,13 @@ const renderItem = item =>
 
 const featured = items => items.find(i => i.featured)
 
-export class Home extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      campsites: CAMPSITES,
-      promotions: PROMOTIONS,
-      partners: PARTNERS,
-    }
-  }
+const HomeComponent = () =>
+  <ScrollView>
+    {renderItem(featured(CAMPSITES))}
+    {renderItem(featured(PROMOTIONS))}
+    {renderItem(featured(PARTNERS))}
+  </ScrollView>
 
-  static navigationOptions = { title: 'Home' }
+const navigationOptions = { title: 'Home' }
 
-  render() {
-    const {
-      campsites,
-      promotions,
-      partners,
-    } = this.state
-
-    return(
-      <ScrollView>
-        {renderItem(featured(campsites))}
-        {renderItem(featured(promotions))}
-        {renderItem(featured(partners))}
-      </ScrollView>
-    )
-  }
-}
+export const Home = Object.assign(HomeComponent, { navigationOptions })
