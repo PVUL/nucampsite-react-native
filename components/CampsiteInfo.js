@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, ScrollView } from 'react-native'
 import { Card, Icon } from 'react-native-elements'
 
@@ -44,30 +44,23 @@ const Comments = ({ comments }) =>
 const getCampsite = campsiteId => CAMPSITES.find(c => c.id === campsiteId)
 const getComments = campsiteId => COMMENTS.filter(c => c.campsiteId === campsiteId)
 
-export class CampsiteInfo extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isFavorite: false,
-    }
-  }
+const CampsiteInfoComponent = ({ navigation }) => {
+  const [isFavorite, setIsFavorite] = useState(false)
 
-  toggleFavorite = () => this.setState({ isFavorite: !this.state.isFavorite })
+  const campsiteId = navigation.getParam('campsiteId')
 
-  static navigationOptions = { title: 'Campsite Information' }
-
-  render() {
-    const campsiteId = this.props.navigation.getParam('campsiteId')
-
-    return (
-      <ScrollView>
-        <Campsite
-          campsite={getCampsite(campsiteId)}
-          isFavorite={this.state.isFavorite}
-          toggleFavorite={this.toggleFavorite}
-        />
-        <Comments comments={getComments(campsiteId)} />
-      </ScrollView>
-    )
-  }
+  return (
+    <ScrollView>
+      <Campsite
+        campsite={getCampsite(campsiteId)}
+        isFavorite={isFavorite}
+        toggleFavorite={() => setIsFavorite(!isFavorite)}
+      />
+      <Comments comments={getComments(campsiteId)} />
+    </ScrollView>
+  )
 }
+
+const navigationOptions = { title: 'Campsite Information' }
+
+export const CampsiteInfo = Object.assign(CampsiteInfoComponent, { navigationOptions })
