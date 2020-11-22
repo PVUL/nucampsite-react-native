@@ -11,26 +11,28 @@ const FavoritesComponent = ({ navigation: { navigate } }) => {
 
   const removeFavorite = campsiteId => setFavorites(favorites.filter(f => f.id !== campsiteId))
 
+  const handleRemove = item => Alert.alert(
+    'Remove Favorite?',
+    `Are you sure you wish to remove the favorite campsite ${item.name}?`,
+    [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => removeFavorite(item.id)
+      },
+    ],
+    { cancelable: false }
+  )
+
   const renderFavoritesItem = ({ item }) =>
     <SwipeRow rightOpenValue={-100} style={styles.swipeRow}>
       <View style={styles.deleteView}>
         <TouchableOpacity
           style={styles.deleteTouchable}
-          onPress={() => Alert.alert(
-            'Remove Favorite?',
-            `Are you sure you wish to remove the favorite campsite ${item.name}?`,
-            [
-              {
-                text: 'Cancel',
-                style: 'cancel',
-              },
-              {
-                text: 'OK',
-                onPress: () => removeFavorite(item.id)
-              },
-            ],
-            { cancelable: false }
-          )}
+          onPress={() => handleRemove(item)}
         >
           <Text style={styles.deleteText}>Remove</Text>
         </TouchableOpacity>
