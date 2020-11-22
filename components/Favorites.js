@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, ScrollView, FlatList, StyleSheet, View } from 'react-native'
+import { Text, FlatList, StyleSheet, View, Alert } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { SwipeRow } from 'react-native-swipe-list-view'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -16,7 +16,21 @@ const FavoritesComponent = ({ navigation: { navigate } }) => {
       <View style={styles.deleteView}>
         <TouchableOpacity
           style={styles.deleteTouchable}
-          onPress={() => removeFavorite(item.id)}
+          onPress={() => Alert.alert(
+            'Remove Favorite?',
+            `Are you sure you wish to remove the favorite campsite ${item.name}?`,
+            [
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+              {
+                text: 'OK',
+                onPress: () => removeFavorite(item.id)
+              },
+            ],
+            { cancelable: false }
+          )}
         >
           <Text style={styles.deleteText}>Remove</Text>
         </TouchableOpacity>
