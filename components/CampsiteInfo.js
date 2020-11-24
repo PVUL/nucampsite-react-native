@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   Text,
   View,
@@ -21,13 +21,11 @@ ANIMATION_DURATION = 1000
 const recognizeDrag = ({ dx }) => dx < -200
 
 const Campsite = ({ campsite, isFavorite, toggleFavorite }) => {
-  const view = React.useRef()
+  const view = useRef()
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
-    onPanResponderGrant: () => {
-      view.current.rubberBand(1000)
-    },
+    onPanResponderGrant: () => { view.current.rubberBand(1000) },
     onPanResponderEnd: (e, gestureState) => {
       if (recognizeDrag(gestureState)) {
         Alert.alert(
