@@ -18,11 +18,16 @@ import { COMMENTS } from '../shared/comments'
 ANIMATION_DELAY = 500
 ANIMATION_DURATION = 1000
 
+const recognizeDrag = ({ dx }) => dx < -200
+
 const Campsite = ({ campsite, isFavorite, toggleFavorite }) => {
-  const recognizeDrag = ({ dx }) => dx < -200
+  const view = React.useRef()
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
+    onPanResponderGrant: () => {
+      view.current.rubberBand(1000)
+    },
     onPanResponderEnd: (e, gestureState) => {
       if (recognizeDrag(gestureState)) {
         Alert.alert(
@@ -52,6 +57,7 @@ const Campsite = ({ campsite, isFavorite, toggleFavorite }) => {
           animation='fadeInDown'
           duration={ANIMATION_DURATION}
           delay={ANIMATION_DELAY}
+          ref={view}
           {...panResponder.panHandlers}
         >
           <Card
