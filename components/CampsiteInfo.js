@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import {
+  Text,
+  View,
+  ScrollView,
+  Modal,
+  Button,
+  StyleSheet,
+  Alert,
+  PanResponder,
+} from 'react-native'
 import { Card, Icon } from 'react-native-elements'
 import * as Animatable from 'react-native-animatable'
 
@@ -9,31 +18,65 @@ import { COMMENTS } from '../shared/comments'
 ANIMATION_DELAY = 500
 ANIMATION_DURATION = 1000
 
-const Campsite = ({ campsite, isFavorite, toggleFavorite }) =>
-  <>
-    {!!campsite ? (
-      <Animatable.View animation='fadeInDown' duration={ANIMATION_DURATION} delay={ANIMATION_DELAY}>
-        <Card
-          featuredTitle={campsite.name}
-          image={require('../assets/images/react-lake.jpg')}
+const Campsite = ({ campsite, isFavorite, toggleFavorite }) => {
+  const recognizeDrag = ({ dx }) => dx < -200
+
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderEnd: (e, gestureState) => {
+      if (recognizeDrag(gestureState)) {
+        Alert.alert(
+          'Add Favorite',
+          `Are you sure you wish to add ${campsite.name} to favorites?`,
+          [
+            {
+              text: 'Cancel',
+              style: 'cancel',
+            },
+            {
+              text: 'OK',
+              onPress: toggleFavorite,
+            }
+          ],
+          { cancelable: false }
+        );
+      }
+      return true;
+    }
+  })
+
+  return (
+    <>
+      {!!campsite ? (
+        <Animatable.View
+          animation='fadeInDown'
+          duration={ANIMATION_DURATION}
+          delay={ANIMATION_DELAY}
+          {...panResponder.panHandlers}
         >
-          <Text style={{ margin: 10 }}>
-            {campsite.description}
-          </Text>
-          <Icon
-            name={isFavorite ? 'heart' : 'heart-o'}
-            type='font-awesome'
-            color='#f50'
-            raised
-            reverse
-            onPress={toggleFavorite}
-          />
-        </Card>
-      </Animatable.View>
-    ) : (
-      <View />
-    )}
-  </>
+          <Card
+            featuredTitle={campsite.name}
+            image={require('../assets/images/react-lake.jpg')}
+          >
+            <Text style={{ margin: 10 }}>
+              {campsite.description}
+            </Text>
+            <Icon
+              name={isFavorite ? 'heart' : 'heart-o'}
+              type='font-awesome'
+              color='#f50'
+              raised
+              reverse
+              onPress={toggleFavorite}
+            />
+          </Card>
+        </Animatable.View>
+      ) : (
+        <View />
+      )}
+    </>
+  )
+}
 
 const Comment = ({ comment }) =>
   <View style={{ margin: 10 }}>
