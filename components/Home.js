@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import React, { useRef, useCallback, useEffect }  from 'react'
+import { View, Text, Animated } from 'react-native'
 import { Card } from 'react-native-elements'
 
 import { CAMPSITES } from '../shared/campsites'
@@ -24,12 +24,29 @@ const renderItem = item =>
 
 const featured = items => items.find(i => i.featured)
 
-const HomeComponent = () =>
-  <ScrollView>
-    {renderItem(featured(CAMPSITES))}
-    {renderItem(featured(PROMOTIONS))}
-    {renderItem(featured(PARTNERS))}
-  </ScrollView>
+const HomeComponent = () => {
+  const scale = React.useRef(new Animated.Value(0)).current;
+
+  const animate = React.useCallback(() => {
+    Animated.timing(scale, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start()
+  }, [])
+
+  React.useEffect(() => {
+    animate()
+  }, [animate])
+
+  return (
+    <Animated.ScrollView style={{ transform: [{ scale }] }}>
+      {renderItem(featured(CAMPSITES))}
+      {renderItem(featured(PROMOTIONS))}
+      {renderItem(featured(PARTNERS))}
+    </Animated.ScrollView>
+  )
+}
 
 const navigationOptions = { title: 'Home' }
 
